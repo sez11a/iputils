@@ -3,12 +3,12 @@
 
 Summary:	Network monitoring tools including ping
 Name:		iputils
-Version:	20221126
-Release:	2
+Version:	20250605
+Release:	1
 License:	BSD
 Group:		System/Base
 URL:		https://github.com/iputils/iputils
-Source0:	https://github.com/iputils/iputils/archive/refs/tags/%{name}-%{version}.tar.gz
+Source0:	https://github.com/iputils/iputils/releases/download/%{version}/iputils-%{version}.tar.xz
 # ifenslave.c seems to come from linux-2.6.25/Documentation/networking/ifenslave.c
 # (tpg) grab it from Fedora
 Source1:	ifenslave.tar.gz
@@ -74,15 +74,10 @@ install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/apparmor.d/bin.ping
 %attr(0755,root,root) %{_bindir}/ping
 %{_bindir}/tracepath
 %{_bindir}/ifenslave
-%if ! %{cross_compiling}
-# FIXME why don't man pages other than ifenslave.8 get built
-# when crosscompiling?
-# Probably help2man or something?
-# Either way, we can live without man pages for a bootstrap,
-# so fixing it isn't a priority
+# Contains HTML documentation
+%doc %{_datadir}/iputils
 %doc %attr(644,root,root) %{_mandir}/man8/clockdiff.8*
 %doc %attr(644,root,root) %{_mandir}/man8/arping.8*
 %doc %attr(644,root,root) %{_mandir}/man8/ping.8*
 %doc %attr(644,root,root) %{_mandir}/man8/tracepath.8*
-%endif
 %doc %attr(644,root,root) %{_mandir}/man8/ifenslave.8*
