@@ -28,6 +28,7 @@ BuildRequires:	cap-devel
 BuildRequires:	libcap-utils
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libsystemd)
+BuildRequires:  make
 BuildRequires:	systemd-rpm-macros
 BuildRequires:	xsltproc
 BuildRequires:	docbook-style-xsl
