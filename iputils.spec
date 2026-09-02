@@ -12,7 +12,6 @@ Source0:	https://github.com/iputils/iputils/releases/download/%{version}/iputils
 # ifenslave.c seems to come from linux-2.6.25/Documentation/networking/ifenslave.c
 # (tpg) grab it from Fedora
 Source1:	ifenslave.tar.gz
-Source4:	bin.ping.apparmor
 Patch0:		iputils-use-libc-gettext.patch
 Patch3:		https://src.fedoraproject.org/rpms/iputils/raw/rawhide/f/iputils-ifenslave.patch
 Patch4:		https://src.fedoraproject.org/rpms/iputils/raw/rawhide/f/iputils-ifenslave-CWE-170.patch
@@ -60,15 +59,10 @@ mkdir -p %{buildroot}%{_mandir}/man8
 install -cp ifenslave %{buildroot}%{_bindir}/
 install -cp ifenslave.8 %{buildroot}%{_mandir}/man8/
 
-# apparmor profile
-mkdir -p %{buildroot}%{_sysconfdir}/apparmor.d/
-install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/apparmor.d/bin.ping
-
 %find_lang %{name}
 
 %files -f %{name}.lang
 %doc README.md README.bonding
-%config(noreplace) %{_sysconfdir}/apparmor.d/bin.ping
 %attr(0755,root,root) %caps(cap_net_raw=p) %{_bindir}/clockdiff
 %attr(0755,root,root) %caps(cap_net_raw=p) %{_bindir}/arping
 %attr(0755,root,root) %{_bindir}/ping
